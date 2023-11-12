@@ -1,0 +1,13 @@
+class Labdecription {
+  String telelabs =
+      "Telelabs has built its reputation by working directly with real industries and organisations and providing holistic solutions to their problems.We work with organizations and provide them with solutions which are both practical and scalable.\n\nOur Fantastic Infrastructure provides all its researchers with top-class infrastructure and equips them with latest technologies."
+      " Communal works alongside local authorities and provides efficient technical solutions to communal problems.\n\nA joint initiative of MIETY, TEQIP and UIET, we specialize in network security as well as VoIP and SIP based communication and their attack mitigation techniques";
+  String telelabslink = "https://uiet.puchd.ac.in/telelabs";
+  String cbrec =
+      "Capacity Building and Research Entrepreneurship Centre provides opportunity to reorient themselves in the light of emerging technologies. The center empowers youth by providing special skill trainings apart from regular studies with the help of modules on Artificial Intelligence, Big Data and IoT. \n\nThe skill development centre focus on the foundation courses on AI, Big Data and IoT. The courses are combination of essential theoretical principles, practical hands on elements, and industry use cases. \n\nThe youth has the opportunity to work on live projects. Participants are introduced to tools and platforms to improve their technical competence making them industry ready and hence strengthening the country’s underprivileged workforce.";
+  String cbreclink = "https://cbrec.in";
+  String dic =
+      "The Ministry of Human Resource Development, Govt of India has taken a national initiative to set up a network of Design Innovation Centres (DICs) across the country.\n\nOne Open Design School and a National Design Innovation Network will link these DICs to evolve a nationwide ecosystem of resource and knowledge sharing to impart education and training to foster the innovative culture of designing products, processes and technologies of need to society."
+      "\n\nThe MHRD has approved the establishment of a DIC at Panjab University, Chandigarh to focus on innovations around engineering products, add value to the available engineering designs and promote early stage start-up companies. \n\nSeveral ideas are being perused for developing a new pedagogy in teaching and training in design, new fabrications and innovations. A number of design technologies for smart cities, biomedical devices, advanced materials, navigational and tourism aids, green environment, energy & traffic management, communication etc have been taken up at the DIC in PU.";
+  String diclink = "https://dicpu.in";
+}

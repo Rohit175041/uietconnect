@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:uietconnect/files/websitelink/uietsitelink.dart';
+
+import 'uietsitelink.dart';
 
 class Websitelist extends StatefulWidget {
   const Websitelist({super.key});
@@ -15,8 +16,11 @@ class _WebsitelistState extends State<Websitelist> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.blue.shade300,
+        elevation: 10,
+        shadowColor: Colors.blue.shade200,
         title: const Text(
-          "Site link",
+          "Quick link",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -50,7 +54,7 @@ class _WebsitelistState extends State<Websitelist> {
             trailing: IconButton(
               icon: const Icon(Icons.link),
               onPressed: () {
-                copyToClipboard(index);
+                copyToClipboard(Weblink().link[index]);
               },
             ),
           ),
@@ -60,8 +64,8 @@ class _WebsitelistState extends State<Websitelist> {
   }
 
   // This function is triggered when the copy icon is pressed
-  Future<void> copyToClipboard(int index) async {
-    await Clipboard.setData(ClipboardData(text: Weblink().link[index]));
+  Future<void> copyToClipboard(String data) async {
+    await Clipboard.setData(ClipboardData(text: data));
 
     if (!mounted) return;
     // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

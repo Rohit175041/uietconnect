@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 class Weblink {
   List<String> linkname = [
     "DIC",
-    "Result",
+    // "Result",
     "UIET website",
     "Syllabus",
     "Previous Paper",
@@ -14,7 +14,7 @@ class Weblink {
   ];
   List<String> link = [
     'https://dicpu.in/',
-    'https://eakadamik.in/uietchd/',
+    // 'https://eakadamik.in/uietchd/',
     'https://uiet.puchd.ac.in',
     'https://uiet.puchd.ac.in/?page_id=3234',
     'https://uiet.puchd.ac.in/?page_id=4119',

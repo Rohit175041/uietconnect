@@ -39,6 +39,7 @@ dependencies:
   flutter_image_slideshow: ^0.1.6
   url_launcher: ^6.1.14
   lottie: ^2.6.0
+  animated_text_kit: ^4.2.2
 
 
 dev_dependencies:
@@ -69,6 +70,7 @@ flutter:
   - img/
   - img/lottie/
   - img/club/
+  - img/lab/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import '../../animation/animatedbutton.dart';
 import '../../animation/imageslider.dart';
 
-class Clubdetail extends StatefulWidget {
+class Labdetail extends StatefulWidget {
   final dynamic clubname, img1, img2, img3, img4, img5, about, des, link;
-  const Clubdetail(
+  const Labdetail(
       {super.key,
-      required this.clubname,
-      required this.img1,
-      required this.img2,
-      required this.img3,
-      required this.img4,
-      required this.img5,
-      required this.about,
-      required this.des,
-      required this.link});
+        required this.clubname,
+        required this.img1,
+        required this.img2,
+        required this.img3,
+        required this.img4,
+        required this.img5,
+        required this.about,
+        required this.des,
+        required this.link});
 
   @override
-  State<Clubdetail> createState() => _ClubdetailState();
+  State<Labdetail> createState() => _LabdetailState();
 }
 
-class _ClubdetailState extends State<Clubdetail> {
+class _LabdetailState extends State<Labdetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,7 @@ class _ClubdetailState extends State<Clubdetail> {
                 child: Text(
                   "About ${widget.clubname}",
                   style: TextStyle(
-                      // fontSize: 20,
+                    // fontSize: 20,
                       fontFamily: 'Pacifico',
                       color: Colors.grey.shade600,
                       fontWeight: FontWeight.bold),
@@ -77,7 +77,7 @@ class _ClubdetailState extends State<Clubdetail> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(12.0),
               child: Center(
                 child: Text(
                   widget.des,

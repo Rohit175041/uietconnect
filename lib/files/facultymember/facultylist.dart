@@ -13,17 +13,9 @@ class _FacuiltyListState extends State<FacuiltyList> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          )
-        ],
+        backgroundColor: Colors.blue.shade300,
+        elevation: 10,
+        shadowColor: Colors.blue.shade200,
       ),
       body: SafeArea(
         child: ListView.builder(

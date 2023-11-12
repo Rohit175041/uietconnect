@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
-class HomeImageSlider extends StatelessWidget {
+class ImageSlider extends StatelessWidget {
   String img1, img2, img3, img4,img5;
-  HomeImageSlider(this.img1, this.img2, this.img3, this.img4,this.img5, {super.key});
+  ImageSlider(this.img1, this.img2, this.img3, this.img4,this.img5, {super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,7 +26,7 @@ class HomeImageSlider extends StatelessWidget {
 
         /// Called whenever the page in the center of the viewport changes.
         onPageChanged: (value) {
-          print('Page changed: $value');
+          // print('Page changed: $value');
         },
 
         /// Auto scroll interval.

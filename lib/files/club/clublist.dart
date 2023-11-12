@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uietconnect/files/club/clubdetails.dart';
-
 import 'clubdescription.dart';
+import 'clubdetails.dart';
 
 class Clublist extends StatefulWidget {
   const Clublist({super.key});
@@ -15,11 +14,13 @@ class _ClublistState extends State<Clublist> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // toolbarHeight: 200,
         centerTitle: true,
+        backgroundColor: Colors.blue.shade300,
+        elevation: 10,
+        shadowColor: Colors.blue.shade200,
         title: const Text(
-          "Students Club",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          "Student Club",
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: SafeArea(
@@ -33,10 +34,10 @@ class _ClublistState extends State<Clublist> {
                     children: [
                       Image.asset("img/club/uietclub1.jpg"),
                       const Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(12.0),
                         child: Center(
                           child: Text(
-                            "Student Clubs at a college are attuned to help students get most out of their experience while they are enrolled at the college for their academic pursuits. \nThese student clubs offer limitless opportunities for student leadership and participation beyond classroom setup and academic programme. They provide a great platform to usher-in the distinctive perspectives and life experiences that all students bring to the college.\nStudent clubs at college level promote the shaping of skills of the students and make them truly life-ready.",
+                            "Student Clubs at a college are attuned to help students get most out of their experience while they are enrolled at the college for their academic pursuits.\nThese student clubs offer limitless opportunities for student leadership and participation beyond classroom setup and academic programme. \n\nThey provide a great platform to usher-in the distinctive perspectives and life experiences that all students bring to the college.\nStudent clubs at college level promote the shaping of skills of the students and make them truly life-ready.",
                             style: TextStyle(fontWeight: FontWeight.w400),
                             overflow: TextOverflow.fade,
                           ),
@@ -57,15 +58,6 @@ class _ClublistState extends State<Clublist> {
                       "Artistic, Creative, and Literary club of UIET, represents an enchanting realm of creativity, imagination, and expression.",
                       clubdecription().magboard,
                       clubdecription().magboardlink),
-                  // imageview(
-                  //     "img/club/photography.jpg",
-                  //     "Imagen",
-                  //     "Photography club of UIET is for people who love to capture beauty with their lenses.",
-                  //     "img/club/p1.jpg",
-                  //     "img/club/p2.jpg",
-                  //     "img/club/p3.jpg",
-                  //     "img/club/p4.jpg",
-                  //     "img/club/p5.jpg"),
                   imageview(
                       "img/club/mitra.jpg",
                       "MITRA",
@@ -88,15 +80,6 @@ class _ClublistState extends State<Clublist> {
                       "Club for programmers, they handhold you to teaching, helping and promoting practical work.",
                       clubdecription().pclub,
                       clubdecription().pClublink),
-                  // imageview(
-                  //     "img/club/jugaad.jpg",
-                  //     "Jugaad",
-                  //     "It is a student-run club aimed at spreading awareness among the students regarding robotics.",
-                  //     "img/club/p1.jpg",
-                  //     "img/club/p2.jpg",
-                  //     "img/club/p3.jpg",
-                  //     "img/club/p4.jpg",
-                  //     "img/club/p5.jpg"),
                   imageview(
                       "img/club/star.jpg",
                       "STAR",
