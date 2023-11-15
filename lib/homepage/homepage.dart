@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import '../files/Departments/Departmentslist.dart';
 import '../files/Quicksitelink/uietsitelink.dart';
 import '../files/Quicksitelink/websitelist.dart';
 import '../files/club/clublist.dart';
-import '../files/facultymember/facultylist.dart';
 import '../files/researchlab/researchlablist.dart';
 import 'MyDrawer.dart';
 import 'aboutcollage.dart';
@@ -49,25 +49,25 @@ class _HomepageState extends State<Homepage> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const FacuiltyList(),
+                          builder: (context) => const DepartmentsList(),
                         ),
                       );
                     },
                     child: HomepageButton(
-                        button_name: "Faculty member",
+                        button_name: "Departments",
                         image_loaction: "img/lottie/uietfaculty.json"),
                   ),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const Clublist(),
+                          builder: (context) => const ResearchLabList(),
                         ),
                       );
                     },
                     child: HomepageButton(
-                        button_name: "Club",
-                        image_loaction: "img/lottie/club.json"),
+                        button_name: "Research Labs",
+                        image_loaction: "img/lottie/researchlab.json"),
                   ),
                 ],
               ),
@@ -84,17 +84,23 @@ class _HomepageState extends State<Homepage> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const ResearchLabList(),
+                          builder: (context) => const Clublist(),
                         ),
                       );
                     },
                     child: HomepageButton(
-                        button_name: "Research Lab",
-                        image_loaction: "img/lottie/researchlab.json"),
+                        button_name: "Clubs",
+                        image_loaction: "img/lottie/club.json"),
                   ),
-                  HomepageButton(
-                      button_name: "Placement",
-                      image_loaction: "img/lottie/placementcell.json"),
+                  GestureDetector(
+                    onTap: () {
+                      Weblink()
+                          .weblaunch('https://uiet.puchd.ac.in/?page_id=2769');
+                    },
+                    child: HomepageButton(
+                        button_name: "Placement",
+                        image_loaction: "img/lottie/placementcell.json"),
+                  ),
                 ],
               ),
             ),

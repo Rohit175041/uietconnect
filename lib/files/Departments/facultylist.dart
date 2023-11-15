@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FacuiltyList extends StatefulWidget {
-  const FacuiltyList({super.key});
+  dynamic departmentname;
+  FacuiltyList({super.key,required this.departmentname});
 
   @override
   State<FacuiltyList> createState() => _FacuiltyListState();
@@ -16,10 +18,14 @@ class _FacuiltyListState extends State<FacuiltyList> {
         backgroundColor: Colors.blue.shade300,
         elevation: 10,
         shadowColor: Colors.blue.shade200,
+        title: Text(
+          widget.departmentname,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: SafeArea(
         child: ListView.builder(
-            itemCount: 25,
+            itemCount: 10,
             itemBuilder: (BuildContext context, int index) {
               return imageview();
             }),
