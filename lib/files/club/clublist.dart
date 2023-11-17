@@ -13,40 +13,76 @@ class _ClublistState extends State<Clublist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.blue.shade300,
-        elevation: 10,
-        shadowColor: Colors.blue.shade200,
-        title: const Text(
-          "Student Club",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                color: Colors.grey.shade50,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset("img/club/uietclub1.jpg"),
-                      const Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: Center(
-                          child: Text(
-                            "Student Clubs at a college are attuned to help students get most out of their experience while they are enrolled at the college for their academic pursuits.\nThese student clubs offer limitless opportunities for student leadership and participation beyond classroom setup and academic programme. \n\nThey provide a great platform to usher-in the distinctive perspectives and life experiences that all students bring to the college.\nStudent clubs at college level promote the shaping of skills of the students and make them truly life-ready.",
-                            style: TextStyle(fontWeight: FontWeight.w400),
-                            overflow: TextOverflow.fade,
+        child: Column(
+          children: [
+            Container(
+              color: Colors.grey.shade50,
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Stack(children: [
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height / 3,
+                    width: double.infinity,
+                    child: Image.asset("img/club/uietclub1.jpg",
+                        fit: BoxFit.cover),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white.withOpacity(0.8),
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 100.0),
+                        child: Card(
+                          color: Colors.black.withOpacity(0.3),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10.0, right: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "Student Club",
+                              style: TextStyle(
+                                  color: Colors.white.withOpacity(0.8),
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      )
-                    ]),
-              ),
-              Column(
+                      )),
+                ]),
+              ]),
+            ),
+            Expanded(
+              child: ListView(
                 children: [
+                  const Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Center(
+                      child: Text(
+                        "Student Clubs at a college are attuned to help students get most out of their experience while they are enrolled at the college for their academic pursuits.\nThese student clubs offer limitless opportunities for student leadership and participation beyond classroom setup and academic programme. \n\nThey provide a great platform to usher-in the distinctive perspectives and life experiences that all students bring to the college.\nStudent clubs at college level promote the shaping of skills of the students and make them truly life-ready.",
+                        style: TextStyle(fontWeight: FontWeight.w400),
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                  ),
                   imageview(
                       "img/club/magboard.jpg",
                       "Magboard",
@@ -93,8 +129,8 @@ class _ClublistState extends State<Clublist> {
                       clubdecription().starlink),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

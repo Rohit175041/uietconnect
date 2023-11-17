@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'facuiltyProfile.dart';
 
 // ignore: must_be_immutable
 class FacuiltyList extends StatefulWidget {
   dynamic departmentname;
-  FacuiltyList({super.key,required this.departmentname});
+  FacuiltyList({super.key, required this.departmentname});
 
   @override
   State<FacuiltyList> createState() => _FacuiltyListState();
@@ -15,12 +16,12 @@ class _FacuiltyListState extends State<FacuiltyList> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blue.shade300,
+        backgroundColor: Colors.black.withOpacity(0.3),
         elevation: 10,
-        shadowColor: Colors.blue.shade200,
+        shadowColor: Colors.blue.withOpacity(0.4),
         title: Text(
           widget.departmentname,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.w800),
         ),
       ),
       body: SafeArea(
@@ -34,16 +35,25 @@ class _FacuiltyListState extends State<FacuiltyList> {
   }
 
   Widget imageview() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        child: ListTile(
-          leading: Image.asset(
-            'img/person.jpg',
-            fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const FacuiltyProfile(),
           ),
-          title: detail(),
-          trailing: const Icon(Icons.account_circle_outlined),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: ListTile(
+            leading: Image.asset(
+              'img/person.jpg',
+              fit: BoxFit.cover,
+            ),
+            title: detail(),
+            trailing: const Icon(Icons.account_circle_outlined),
+          ),
         ),
       ),
     );

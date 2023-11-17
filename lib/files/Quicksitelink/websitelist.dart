@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:uietconnect/services/Copyfunction.dart';
 
 import 'uietsitelink.dart';
 
@@ -54,7 +55,7 @@ class _WebsitelistState extends State<Websitelist> {
             trailing: IconButton(
               icon: const Icon(Icons.link),
               onPressed: () {
-                copyToClipboard(Weblink().link[index]);
+                Copyfunction().copyToClipboard(Weblink().link[index]);
               },
             ),
           ),
@@ -63,14 +64,4 @@ class _WebsitelistState extends State<Websitelist> {
     );
   }
 
-  // This function is triggered when the copy icon is pressed
-  Future<void> copyToClipboard(String data) async {
-    await Clipboard.setData(ClipboardData(text: data));
-
-    if (!mounted) return;
-    // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-    //   content: Text('Link  Copied'),
-    // )
-    // );
-  }
 }

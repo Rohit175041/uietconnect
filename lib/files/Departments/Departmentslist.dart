@@ -10,43 +10,44 @@ class DepartmentsList extends StatefulWidget {
 
 class _DepartmentsListState extends State<DepartmentsList> {
   @override
-  initState() {
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.blue.shade300,
-        elevation: 10,
-        shadowColor: Colors.blue.shade200,
-        title: const Text(
-          "Departments",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 5),
-            imageview('img/dep/cse.jpg', 'Computer Science and Engineering',
-                'CSE is an academic program which comprises approaches of computer science and computer engineering.'),
-            imageview('img/dep/it.jpg', 'Information Technology',
-                'IT is a set of related fields that encompass computer systems, software, programming languages and information processing.'),
-            imageview(
-                'img/dep/ece.jpg',
-                'Electronics and Communication Engineering',
-                'ECE involves developing and testing electronic circuits and communication devices like transmitters, receivers and integrated circuits.'),
-            imageview(
-                'img/dep/eee.jpg',
-                'Electrical and Electronics Engineering',
-                'EEE deals with the technological aspects of electricity, especially the design and application of circuitry and electronic equipment.'),
-            imageview('img/dep/me.jpg', 'Mechanical Engineering',
-                'ME combines engineering physics and mathematics principles with materials science, to design, manufacture, and mechanical systems.'),
-            imageview('img/dep/bt.jpg', 'Biotechnology',
-                'It involves the integration of natural sciences and engineering sciences in order to achieve the application of organisms, cells and molecules.'),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Card(
+                  child: ListTile(
+                      leading: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(Icons.arrow_back)),
+                      title: const Center(
+                        child: Text(
+                          "Departments",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ))),
+              const SizedBox(height: 5),
+              imageview('img/dep/cse.jpg', 'Computer Science and Engineering',
+                  'CSE is an academic program which comprises approaches of computer science and computer engineering.'),
+              imageview('img/dep/it.jpg', 'Information Technology',
+                  'IT is a set of related fields that encompass computer systems, software, programming languages and information processing.'),
+              imageview(
+                  'img/dep/ece.jpg',
+                  'Electronics and Communication Engineering',
+                  'ECE involves developing and testing electronic circuits and communication devices like transmitters, receivers and integrated circuits.'),
+              imageview(
+                  'img/dep/eee.jpg',
+                  'Electrical and Electronics Engineering',
+                  'EEE deals with the technological aspects of electricity, especially the design and application of circuitry and electronic equipment.'),
+              imageview('img/dep/me.jpg', 'Mechanical Engineering',
+                  'ME combines engineering physics and mathematics principles with materials science, to design, manufacture, and mechanical systems.'),
+              imageview('img/dep/bt.jpg', 'Biotechnology',
+                  'It involves the integration of natural sciences and engineering sciences in order to achieve the application of organisms, cells and molecules.'),
+            ],
+          ),
         ),
       ),
     );

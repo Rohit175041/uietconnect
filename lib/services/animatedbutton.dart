@@ -1,6 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-
 import '../files/Quicksitelink/uietsitelink.dart';
 
 
@@ -45,7 +44,7 @@ class _AnimatedButtonState extends State<AnimatedButton> {
             colors: colorizeColors,
           )
         ],
-        repeatForever: true,
+        repeatForever: false,
         isRepeatingAnimation: true,
         // totalRepeatCount: 10,
         onTap: () {

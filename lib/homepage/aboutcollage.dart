@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../animation/animatedbutton.dart';
+import '../services/animatedbutton.dart';
 
 class Aboutsection extends StatefulWidget {
   const Aboutsection({super.key});
