@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../files/Quicksitelink/uietsitelink.dart';
+import '../files/userProfile/Profile.dart';
+import '../files/userProfile/uploaddata.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});
-
   @override
   State<DrawerWidget> createState() => _DrawerWidgetState();
 }
@@ -48,7 +49,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                               shadows: [
                                 Shadow(
                                   color: Colors.grey.shade400,
-                                  offset:const Offset(-3, -2),
+                                  offset: const Offset(-3, -2),
                                 ),
                               ],
                             ),
@@ -77,7 +78,25 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       leading: const Icon(Icons.person),
                       title: const Text(' My Profile '),
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const Profile(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Card(
+                    color: Colors.grey.shade100,
+                    child: ListTile(
+                      leading: const Icon(Icons.account_circle),
+                      title: const Text(' Create Profile '),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const Uploaddata(),
+                          ),
+                        );
                       },
                     ),
                   ),

@@ -69,7 +69,6 @@ class _DepartmentsListState extends State<DepartmentsList> {
           child: ListTile(
               leading: Image.asset(
                 img,
-                // fit: BoxFit.contain,
                 height: MediaQuery.sizeOf(context).height / 4,
                 width: MediaQuery.sizeOf(context).width / 5,
               ),
