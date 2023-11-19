@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uietconnect/homepage/homepage.dart';
 
@@ -13,6 +16,7 @@ class Uploaddata extends StatefulWidget {
 }
 
 class _UploaddataState extends State<Uploaddata> {
+   String userUID= FirebaseAuth.instance.currentUser!.uid;
   bool a = false;
   final GlobalKey<FormState> _formKey = GlobalKey();
   XFile? file;
@@ -187,40 +191,44 @@ class _UploaddataState extends State<Uploaddata> {
 
   //uploading image to firebase storage
   void uploadimage() async {
-    final metaData = SettableMetadata();
-    final storageRef = FirebaseStorage.instance.ref();
-    Reference ref =
-        storageRef.child('uiet/internmage/${DateTime.now().millisecond}');
-    final uploadTask = await ref
-        .putFile(File(file!.path), metaData)
-        .whenComplete(() => {showSnackBar(Colors.green, "image uploaded")});
-    uploadUserData(await uploadTask.ref.getDownloadURL());
+    try {
+      final metaData = SettableMetadata();
+      final storageRef = FirebaseStorage.instance.ref();
+      Reference ref = storageRef
+          .child('uiet/$userUID/profileimage/${DateTime.now().millisecond}');
+      final uploadTask = await ref.putFile(File(file!.path), metaData);
+      uploadUserData(await uploadTask.ref.getDownloadURL());
+    } catch (e) {
+      print(e);
+    }
   }
 
   uploadUserData(String url) async {
     try {
-      FirebaseFirestore.instance
-          .collection('uiet')
-          // .doc('staffdata1jhmb')
-          .add({
+      FirebaseFirestore.instance.collection('uietconnect').doc('$userUID').set({
         'name': name.text,
         'position': position.text,
         'experience': experience.text,
         'qualification': qualification.text,
         'email': email.text,
         'about': about.text,
-        'img': url
+        'img': url,
+        'useruid': userUID,
+        'block': false
       }).whenComplete(() => {
-                cleardata(),
-                showSnackBar(Colors.green, 'Account created'),
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, a, b) => const Homepage(),
-                      transitionDuration: const Duration(seconds: 1),
-                    ),
-                    (route) => false)
-              });
+            setState(() {
+              a = false;
+            }),
+            cleardata(),
+            showSnackBar(Colors.green, 'Account created'),
+            Navigator.pushAndRemoveUntil(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, a, b) => const Homepage(),
+                  transitionDuration: const Duration(seconds: 2),
+                ),
+                (route) => false)
+          });
     } catch (e) {
       print(e);
     }

@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../files/Quicksitelink/uietsitelink.dart';
+import '../files/login/screens/welcome_screen.dart';
 import '../files/userProfile/Profile.dart';
 import '../files/userProfile/uploaddata.dart';
 
@@ -117,8 +120,16 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     child: ListTile(
                       leading: const Icon(Icons.logout),
                       title: const Text('LogOut'),
-                      onTap: () {
-                        Navigator.pop(context);
+                      onTap: () async {
+                        await FirebaseAuth.instance.signOut();
+                        await FlutterSecureStorage().deleteAll();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (context, a, b) =>
+                                  const WelcomeScreen(),
+                            ),
+                            (route) => false);
                       },
                     ),
                   ),
