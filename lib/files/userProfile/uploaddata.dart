@@ -1,10 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uietconnect/homepage/homepage.dart';
 
@@ -16,7 +15,7 @@ class Uploaddata extends StatefulWidget {
 }
 
 class _UploaddataState extends State<Uploaddata> {
-   String userUID= FirebaseAuth.instance.currentUser!.uid;
+  String userUID = FirebaseAuth.instance.currentUser!.uid;
   bool a = false;
   final GlobalKey<FormState> _formKey = GlobalKey();
   XFile? file;
@@ -26,6 +25,9 @@ class _UploaddataState extends State<Uploaddata> {
   TextEditingController qualification = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController about = TextEditingController();
+  TextEditingController socialmediaaccount = TextEditingController();
+  final List<String> items = ['CSE', 'IT', 'ECE', 'EEE', 'ME', 'BT'];
+  String? department;
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +64,65 @@ class _UploaddataState extends State<Uploaddata> {
                       return null;
                     },
                   ),
-                  TextFormField(
-                    decoration:
-                        const InputDecoration(labelText: 'Year of experiance'),
-                    keyboardType: TextInputType.text,
-                    controller: experience,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter experiance';
-                      }
-                      return null;
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 150,
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                              labelText: 'Year of experiance'),
+                          keyboardType: TextInputType.number,
+                          controller: experience,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter experiance';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton2<String>(
+                            isExpanded: false,
+                            hint: Text(
+                              'Select Department',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Theme.of(context).hintColor,
+                              ),
+                            ),
+                            items: items
+                                .map((String item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            value: department,
+                            onChanged: (String? value) {
+                              setState(() {
+                                department = value;
+                              });
+                            },
+                            buttonStyleData: const ButtonStyleData(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              height: 40,
+                              width: 140,
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 40,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   TextFormField(
                     decoration:
@@ -96,6 +146,18 @@ class _UploaddataState extends State<Uploaddata> {
                       }
                       return null;
                     },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        labelText: 'Social Media Account'),
+                    keyboardType: TextInputType.text,
+                    controller: socialmediaaccount,
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Enter Qualification';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                   TextFormField(
                     maxLength: 300,
@@ -205,13 +267,15 @@ class _UploaddataState extends State<Uploaddata> {
 
   uploadUserData(String url) async {
     try {
-      FirebaseFirestore.instance.collection('uietconnect').doc('$userUID').set({
+      FirebaseFirestore.instance.collection('uietdep').doc('$userUID').set({
         'name': name.text,
         'position': position.text,
         'experience': experience.text,
+        'department': department,
         'qualification': qualification.text,
         'email': email.text,
         'about': about.text,
+        'smedia': socialmediaaccount.text,
         'img': url,
         'useruid': userUID,
         'block': false
@@ -241,6 +305,7 @@ class _UploaddataState extends State<Uploaddata> {
     qualification.clear();
     email.clear();
     about.clear();
+    socialmediaaccount.clear();
   }
 
   void showSnackBar(dynamic color, String text) {

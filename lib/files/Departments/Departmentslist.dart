@@ -30,21 +30,21 @@ class _DepartmentsListState extends State<DepartmentsList> {
                         ),
                       ))),
               const SizedBox(height: 5),
-              imageview('img/dep/cse.jpg', 'Computer Science and Engineering',
+              imageview('CSE','img/dep/cse.jpg', 'Computer Science and Engineering',
                   'CSE is an academic program which comprises approaches of computer science and computer engineering.'),
-              imageview('img/dep/it.jpg', 'Information Technology',
+              imageview('IT','img/dep/it.jpg', 'Information Technology',
                   'IT is a set of related fields that encompass computer systems, software, programming languages and information processing.'),
-              imageview(
+              imageview('ECE',
                   'img/dep/ece.jpg',
                   'Electronics and Communication Engineering',
                   'ECE involves developing and testing electronic circuits and communication devices like transmitters, receivers and integrated circuits.'),
-              imageview(
+              imageview('EEE',
                   'img/dep/eee.jpg',
                   'Electrical and Electronics Engineering',
                   'EEE deals with the technological aspects of electricity, especially the design and application of circuitry and electronic equipment.'),
-              imageview('img/dep/me.jpg', 'Mechanical Engineering',
+              imageview('ME','img/dep/me.jpg', 'Mechanical Engineering',
                   'ME combines engineering physics and mathematics principles with materials science, to design, manufacture, and mechanical systems.'),
-              imageview('img/dep/bt.jpg', 'Biotechnology',
+              imageview('BT','img/dep/bt.jpg', 'Biotechnology',
                   'It involves the integration of natural sciences and engineering sciences in order to achieve the application of organisms, cells and molecules.'),
             ],
           ),
@@ -53,7 +53,7 @@ class _DepartmentsListState extends State<DepartmentsList> {
     );
   }
 
-  Widget imageview(String img, String departmentname, String description) {
+  Widget imageview(String bt,String img, String departmentname, String description) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
@@ -61,7 +61,7 @@ class _DepartmentsListState extends State<DepartmentsList> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) =>
-                  FacuiltyList(departmentname: departmentname),
+                  FacuiltyList(bt:bt,departmentname: departmentname,),
             ),
           );
         },
@@ -72,7 +72,8 @@ class _DepartmentsListState extends State<DepartmentsList> {
                 height: MediaQuery.sizeOf(context).height / 4,
                 width: MediaQuery.sizeOf(context).width / 5,
               ),
-              title: detail(departmentname, description)),
+              title: detail(
+                  departmentname, description)),
         ),
       ),
     );
