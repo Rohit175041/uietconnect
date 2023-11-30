@@ -83,7 +83,7 @@ class _FacuiltyProfileState extends State<FacuiltyProfile> {
                                   fontWeight: FontWeight.w600),
                             ),
                             Text(
-                              'Teaching experience: ${widget.data['experience']}',
+                              'Teaching experience: ${widget.data['experience']} years',
                               style: const TextStyle(
                                   // fontSize: 25,
                                   fontWeight: FontWeight.w600),

@@ -103,7 +103,9 @@ class _FacuiltyListState extends State<FacuiltyList> {
                         alignment: Alignment.topLeft,
                         child: Text("${data['position']}")),
                   ),
-                  Align(alignment: Alignment.topLeft, child: Text('${data['email']}')),
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: Text('${data['email']}')),
                 ],
               ),
             ),
@@ -143,13 +145,13 @@ class _FacuiltyListState extends State<FacuiltyList> {
       _isLoadingData = false;
       // print(list.length);
       setState(() {});
-    //   if (querySnapshot.docs.length < 5) {
-    //     _isMoreData = false;
-    //   }
-    // } else {
-    //   setState(() {
-    //     _isLoadingData = false;
-    //   });
+      //   if (querySnapshot.docs.length < 5) {
+      //     _isMoreData = false;
+      //   }
+      // } else {
+      //   setState(() {
+      //     _isLoadingData = false;
+      //   });
       //   // print("No More Data");
     }
   }
