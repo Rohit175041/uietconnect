@@ -81,12 +81,16 @@ class _FacuiltyListState extends State<FacuiltyList> {
         padding: const EdgeInsets.all(8.0),
         child: Card(
           child: ListTile(
-            leading: Image.network(
-              data['img'],
-              fit: BoxFit.cover,
+            leading: SizedBox(
+              height: 90.0,
+              width: 80.0,
+              child: Image.network(
+                data['img'],
+                fit: BoxFit.fill,
+              ),
             ),
             title: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(6.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

@@ -152,12 +152,6 @@ class _UploaddataState extends State<Uploaddata> {
                         labelText: 'Social Media Account'),
                     keyboardType: TextInputType.text,
                     controller: socialmediaaccount,
-                    // validator: (value) {
-                    //   if (value!.isEmpty) {
-                    //     return 'Enter Qualification';
-                    //   }
-                    //   return null;
-                    // },
                   ),
                   TextFormField(
                     maxLength: 300,

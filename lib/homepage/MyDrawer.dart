@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,8 +15,10 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
+
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     return SizedBox(
       width: MediaQuery.sizeOf(context).width / 1.5,
       child: Drawer(
@@ -80,12 +83,23 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     child: ListTile(
                       leading: const Icon(Icons.person),
                       title: const Text(' My Profile '),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const Profile(),
-                          ),
-                        );
+                      onTap: () async{
+                        FirebaseFirestore.instance
+                            .collection('uietdep')
+                            .doc(user!.uid)
+                            .get()
+                            .then((DocumentSnapshot documentSnapshot) {
+                          if (documentSnapshot.exists) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const Profile(),
+                              ),
+                            );
+                          }else{
+                           Navigator.pop(context);
+                          }
+                        });
+
                       },
                     ),
                   ),
@@ -122,7 +136,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       title: const Text('LogOut'),
                       onTap: () async {
                         await FirebaseAuth.instance.signOut();
-                        await FlutterSecureStorage().deleteAll();
+                        await const FlutterSecureStorage().deleteAll();
                         Navigator.pushAndRemoveUntil(
                             context,
                             PageRouteBuilder(
@@ -165,4 +179,5 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     // )
     // );
   }
+
 }

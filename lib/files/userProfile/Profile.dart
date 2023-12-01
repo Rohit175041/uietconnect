@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import '../../homepage/homepage.dart';
+import '../Quicksitelink/uietsitelink.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -29,6 +31,7 @@ class _ProfileState extends State<Profile> {
   TextEditingController about = TextEditingController();
   TextEditingController pname = TextEditingController();
   TextEditingController aboproj = TextEditingController();
+
 //TODO Add your own Collection Name instead of 'users'
   CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('uietdep');
@@ -200,7 +203,8 @@ class _ProfileState extends State<Profile> {
                             title('About'),
                             IconButton(
                               onPressed: () {
-                                alertabout('About');
+                                alertabout(
+                                    'About', streamSnapshot.data!['about']);
                               },
                               icon: const Icon(
                                 Icons.add,
@@ -232,7 +236,7 @@ class _ProfileState extends State<Profile> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.grey.withOpacity(0.2),
         onPressed: () {
-          Researchproject();
+          addproject();
         },
         child: const Icon(Icons.add),
       ),
@@ -253,47 +257,93 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget projectlist() {
-    return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Align(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      'Project name',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      overflow: TextOverflow.ellipsis,
+    return StreamBuilder(
+        stream: usersCollection
+            .doc(user!.uid)
+            .collection('researchProject')
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView(
+            children: snapshot.data!.docs.map((document) {
+              return GestureDetector(
+                onTap: () {
+                  updateproject(
+                      document.id, document['pname'], document['proabo']);
+                },
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            '${document['pname']}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '${document['proabo']}',
+                          style: TextStyle(
+                              fontSize: 12, color: Colors.grey.shade600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '${document['Date']}',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey.shade600),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  Weblink().weblaunch(document['link']);
+                                },
+                                child: const Icon(
+                                  Icons.share,
+                                  color: Colors.grey,
+                                )),
+                            GestureDetector(
+                                onTap: () {
+                                  updateprojlink(document.id);
+                                },
+                                child: const Icon(
+                                  Icons.link,
+                                  color: Colors.grey,
+                                )),
+                            GestureDetector(
+                                onTap: () {
+                                  deleteproject(document.id);
+                                },
+                                child: const Icon(
+                                  Icons.delete,
+                                  color: Colors.grey,
+                                )),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'About Project',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Date',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey.shade600),
-                  ),
-                ],
-              ),
-            ),
+                ),
+              );
+            }).toList(),
           );
         });
   }
@@ -488,15 +538,17 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  void alertabout(String title) {
+  void alertabout(String title, String data) {
+    about.text = data;
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(title),
         content: TextFormField(
           maxLength: 300,
-          maxLines: 2,
+          maxLines: 3,
           keyboardType: TextInputType.text,
+          // style: TextStyle(fontSize: 10),
           controller: about,
         ),
         actions: <Widget>[
@@ -628,16 +680,6 @@ class _ProfileState extends State<Profile> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-            child: Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(14),
-              child: const Text("No"),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
               deleteData(postid, imgurl);
               Navigator.of(ctx).pop();
             },
@@ -645,6 +687,16 @@ class _ProfileState extends State<Profile> {
               color: Colors.white,
               padding: const EdgeInsets.all(14),
               child: const Text("Yes"),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(14),
+              child: const Text("No"),
             ),
           ),
         ],
@@ -659,14 +711,24 @@ class _ProfileState extends State<Profile> {
       print(storageReference);
       await usersCollection.doc(id).delete().whenComplete(() {
         storageReference.delete();
+        Navigator.pushAndRemoveUntil(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, a, b) =>
+              const Homepage(),
+            ),
+                (route) => false);
         showSnackBar(Colors.green, "deleted");
+
       });
     } catch (e) {
       print(e);
     }
   }
 
-  void Researchproject() {
+  void addproject() {
+    pname.clear();
+    aboproj.clear();
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -732,6 +794,170 @@ class _ProfileState extends State<Profile> {
               color: Colors.white,
               padding: const EdgeInsets.all(14),
               child: const Text("Back"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void updateproject(String id, String name, String about) {
+    pname.text = name;
+    aboproj.text = about;
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        content: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Project name'),
+                keyboardType: TextInputType.text,
+                controller: pname,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter project name';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                maxLength: 300,
+                maxLines: 3,
+                decoration: const InputDecoration(labelText: 'Project details'),
+                keyboardType: TextInputType.text,
+                controller: aboproj,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter project details';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                usersCollection
+                    .doc(user!.uid)
+                    .collection('researchProject')
+                    .doc(id)
+                    .update({
+                  'pname': pname.text,
+                  'proabo': aboproj.text,
+                  'Date': date
+                }).whenComplete(() => Navigator.of(ctx).pop());
+              } else {
+                showSnackBar(Colors.red, "fill the from");
+              }
+            },
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(14),
+              child: const Text("Submit"),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(14),
+              child: const Text("Back"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void updateprojlink(String id) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Project Link'),
+        content: TextFormField(
+          // maxLength: 300,
+          // maxLines: 2,
+          keyboardType: TextInputType.text,
+          controller: experience,
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              usersCollection
+                  .doc(user!.uid)
+                  .collection('researchProject')
+                  .doc(id)
+                  .update({
+                'link': experience.text,
+              }).whenComplete(
+                      () => {experience.clear(), Navigator.of(ctx).pop()});
+            },
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(14),
+              child: const Text("Submit"),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(14),
+              child: const Text("Back"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void deleteproject(dynamic postid) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Delete"),
+        content: const Text("Want to delete?"),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () async {
+              try {
+                await usersCollection
+                    .doc(user!.uid)
+                    .collection('researchProject')
+                    .doc(postid)
+                    .delete()
+                    .whenComplete(() {
+                  showSnackBar(Colors.green, "deleted");
+                });
+              } catch (e) {
+                print(e);
+              }
+              Navigator.of(ctx).pop();
+            },
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(14),
+              child: const Text("Yes"),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(14),
+              child: const Text("No"),
             ),
           ),
         ],
